@@ -1,0 +1,129 @@
+- start project di django
+
+  django-admin startproject project
+
+
+- bikin file sqlite
+
+    python manage.py migrate
+
+- untuk buat project masuk di directory project / nama directory projectnya
+
+- jalankan command
+python manage.py startapp {nama app}
+
+
+- tambahkan ke settings.py installed_app
+
+
+- tambahkan model kita di file models.py
+
+-----------------------------------------
+
+from django.db import models
+
+# Create your models here.
+
+
+class Todo(models.Model):
+
+    title = models.CharField(max_length=255, default='')
+
+    description = models.CharField(max_length=255, default='')
+
+
+
+-----------------------------------------
+
+buat table di sqlite python manage.py makemigrations
+
+
+tulis view
+
+-----------
+from django.shortcuts import render
+
+from django.http import HttpResponse
+
+# Create your views here.
+
+
+def index(request):
+    return HttpResponse('Hello')
+
+
+
+-----------
+
+
+buat routing file nama urls
+
+from .views import blablabla -> . maksudnya import dari file python di directory saat ini
+
+
+pergi ke project -> urls (ini master urls)
+
+---
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('todos.urls'))
+]
+---
+
+untuk menggunakan relative path
+
+----
+from django.urls import path
+
+from .views import index, penjumlahan
+
+
+urlpatterns = [
+    path('hello_index', index, name='hello_index'),
+    path('penjumlahan/<int:angka1>/<int:angka2>', penjumlahan, name='pejumlahan'),
+]
+
+
+-- ini diview
+def penjumlahan(request, angka1, angka2):
+    total = angka1 + angka2
+    return HttpResponse('Hasil adalah ' + str(total))
+
+----
+
+
+bikin directory templates di directory appnya
+
+bikin directory sesuai dengan nama app nya
+
+config template disetting
+----
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+----
+
+template yang dipanggil harus sesuai dengan directorynya :
+
+def contoh_html(req):
+    contoh(nama='fahmi')
+    return render(request=req, template_name='hello.html')
+
