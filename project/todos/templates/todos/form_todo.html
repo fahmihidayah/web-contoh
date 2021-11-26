@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form todo</title>
+</head>
+<body>
+<form method="post" action="">
+    {{method}}
+    {% csrf_token %}
+    {{ form }}
+    <button  type="submit">Submit</button>
+</form>
+</body>
+</html>
