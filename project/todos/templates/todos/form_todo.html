@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Form todo</title>
-</head>
-<body>
-<form method="post" action="">
-    {{method}}
-    {% csrf_token %}
-    {{ form }}
-    <button  type="submit">Submit</button>
-</form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="card">
+   <div class="card-body">
+        <form method="post" action="">
+        {% csrf_token %}
+        {{ form | crispy}}
+            <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+   </div>
+</div>
+{% endblock %}
